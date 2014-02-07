@@ -18,7 +18,6 @@
         },
 
         newMeasure: function (name, fn) {
-
             this._newMeasure = {
                 name: name,
                 fn: fn,
