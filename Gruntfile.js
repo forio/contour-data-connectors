@@ -45,7 +45,7 @@ module.exports = function (grunt) {
         },
         concat: {
             all: {
-                src: ['src/scripts/header.js', '<%= scripts.connectors %>', 'src/scripts/footer.js'],
+                src: ['src/scripts/header.js', '<%= scripts.libs %>', '<%= scripts.connectors %>', 'src/scripts/footer.js'],
                 dest: 'dist/narwhal.connectors.js'
             }
         },
@@ -66,11 +66,10 @@ module.exports = function (grunt) {
     });
 
     // Default task.
-    grunt.registerTask('linked', ['concat', 'uglify', 'less:uncompressed', 'less:production', 'watch']);
-    grunt.registerTask('default', ['less:dev', 'watch:less']);
+    grunt.registerTask('default', ['concat', 'uglify', 'watch']);
     grunt.registerTask('production', function (type) {
         type = type ? type : 'patch';
-        ['bumpup:' + type, 'ver', 'concat', 'uglify', 'less:production', 'tagrelease'].forEach(function (task) {
+        ['bumpup:' + type, 'ver', 'concat', 'uglify', 'tagrelease'].forEach(function (task) {
             grunt.task.run(task);
         });
     });
