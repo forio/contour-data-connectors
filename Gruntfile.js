@@ -38,6 +38,7 @@ module.exports = function (grunt) {
                 'src/scripts/utils.js'
             ],
             connectors: [
+                'src/scripts/base.js',
                 'src/scripts/connector-base.js',
                 'src/scripts/**/*.js'
             ]

@@ -1,6 +1,7 @@
 (function () {
+    'use strict';
 
-    var Csv = Narwhal.connectors.ConnectorBase.extend({
+    Narwhal.connectors.Csv = Narwhal.connectors.ConnectorBase.extend({
         constructor: function (raw, headerRow) {
             headerRow = typeof headerRow === 'undefined' ? true : headerRow;
             this.parse(raw, headerRow);
@@ -23,8 +24,5 @@
             }, this);
         }
     });
-
-    Narwhal.connectors = Narwhal.connectors || {};
-    Narwhal.connectors.Csv = Csv;
 
 })();

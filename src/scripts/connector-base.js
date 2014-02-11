@@ -1,19 +1,61 @@
 (function () {
+    'use strict';
 
-    function ConnectorBase() {}
-
-    ConnectorBase.prototype = {
+    Narwhal.connectors.ConnectorBase = Narwhal.Base.extend({
         initialize: function () {
+        },
+
+        getDimensions: function () {
+            if (!this._data.length) return this._headers[0];
+            var dimensions = [];
+            var sampleRow = this._data[1];
+
+            _.each(this._headers, function (header, index) {
+                if (_.isNaN(+sampleRow[index])) {
+                    dimensions.push(header);
+                }
+
+            }, this);
+
+            return dimensions;
+        },
+
+        getMeasures: function () {
+            var measures = [];
+            var sampleRow = this._data[1];
+
+            _.each(this._headers, function (header, index) {
+                if (!_.isNaN(+sampleRow[index])) {
+                    measures.push(header);
+                }
+
+            }, this);
+
+            return measures;
         },
 
         dimension: function (_) {
             if(!arguments.length) return this._headers[this._dimension];
-            this._dimension = this._headers.indexOf(_.toLowerCase());
+            this._dimension = this._headers.indexOf(_);
             return this;
         },
 
-        filter: function (selector) {
-            this._filterSelector = selector;
+        filter: function (criteria) {
+            if (typeof criteria === 'function') {
+                this._filterSelector = selector;
+            } else {
+
+                this._filterSelector = function (row) {
+                    for(var key in criteria) {
+                        var index = this._headers.indexOf(key);
+                        if (index >= 0 && row[index] !== criteria[key])
+                            return false;
+                    }
+
+                    return true;
+                };
+            }
+
             return this;
         },
 
@@ -52,14 +94,11 @@
             measures = _.isArray(measures) ? measures : [measures];
             var _this = this;
             var filteredData = this._filterSelector ? _.filter(_this._data, function(row, index) { return _this._filterSelector.call(_this, row, index, _this._headers); }) : this._data;
-            var rolledRight = this._newMeasure ? _.map(filteredData, function (row, index) { row.push(_this._newMeasure.fn.call(_this, row, index, _this._headers)); return row; } ) : filteredData;
+            var rolledRight = this._newMeasure ? _.map(filteredData, function (row, index) { var r = row.slice(); r.push(_this._newMeasure.fn.call(_this, row, index, _this._headers)); return r; } ) : filteredData;
             var sortMeasureIndex = this._getMeasureIndex(measures[0]);
 
             if (this._take) {
-                rolledRight.sort(function (a, b) {
-                    // console.log();
-                    return +b[sortMeasureIndex] - +a[sortMeasureIndex];
-                });
+                rolledRight.sort(function (a, b) { return +b[sortMeasureIndex] - +a[sortMeasureIndex]; });
                 rolledRight = this._take > 0 ? rolledRight.slice(0, this._take) : rolledRight.slice(this._take);
             }
 
@@ -70,7 +109,6 @@
 
         _getMeasureIndex: function (measure) {
             return this._newMeasure && this._newMeasure.name === measure ? this._newMeasure.index : this._headers.indexOf(measure);
-
         },
 
         _generateSeries: function (measure, data) {
@@ -85,11 +123,6 @@
 
             return { name: measure, data: result };
         }
-    };
-
-    ConnectorBase.extend = Narwhal.extend;
-    Narwhal = Narwhal || {};
-    Narwhal.connectors = Narwhal.connectors || {};
-    Narwhal.connectors.ConnectorBase = ConnectorBase;
+    });
 
 })();

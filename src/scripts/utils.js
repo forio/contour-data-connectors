@@ -1,4 +1,5 @@
 (function () {
+    'use strict';
 
     function inherit(C, P) {
         var F = function () {};
@@ -8,23 +9,39 @@
         C.prototype.constructor = C;
     }
 
-    Narwhal.extend = function (props, static) {
-        var parent = this;
-
-        if (props && props.hasOwnProperty('constructor')) {
-            child = props.constructor;
-        } else {
-            child = function(){ return parent.apply(this, arguments); };
+    /**
+    * Shallow copy of an object
+    */
+    Narwhal.extend = function (dest /*, var_args*/) {
+        var obj = Array.prototype.slice.call(arguments, 1);
+        var current;
+        for (var j=0; j<obj.length; j++) {
+            if (!(current = obj[j])) continue;
+            for (var key in current) {
+                dest[key] = current[key];
+            }
         }
 
+        return dest;
+    };
+
+    /**
+    /* Inherit from a class (using prototype borrowing)
+    */
+    Narwhal.extendClass = function (props, staticProps) {
+        var parent = this;
+        var child;
+
+        child = props && props.hasOwnProperty('constructor') ? props.constructor : function () { return parent.apply(this, arguments); };
+
         // add static properties to the child constructor function
-        $.extend(child, parent, static);
+        Narwhal.extend(child, parent, staticProps);
 
         // associate prototype chain
         inherit(child, parent);
 
         // add instance properties
-        if (props) $.extend(child.prototype, props);
+        if (props) Narwhal.extend(child.prototype, props);
 
         // done
         return child;
