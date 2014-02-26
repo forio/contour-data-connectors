@@ -89,7 +89,7 @@
 
             var reducer = function (row) {
                 _.each(row, function (entry, i) {
-                    if (!isNaN(+entry)) {
+                    if (!_.isNaN(+entry)) {
                         var val = +entry;
                         gr[i] = (gr[i] || 0) + val;
                     } else {
