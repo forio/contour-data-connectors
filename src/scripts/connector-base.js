@@ -36,7 +36,7 @@
 
         dimension: function (_) {
             if(!arguments.length) return this._headers[this._dimension];
-            this._dimension = this._headers.indexOf(_);
+            this._dimension = this._headers.indexOf(_.toLowerCase().trim());
             return this;
         },
 
@@ -107,10 +107,11 @@
             return reduced;
         },
 
-        measure: function (name) {
+        measure: function (name, extras) {
             name = _.isArray(name) ? name : [name];
+            var lowerCase = function (x) { return x.toLowerCase().trim(); }
 
-            return this.data(_.map(name, String.toLowerCase));
+            return this.data(_.map(name, lowerCase), _.map(extras, lowerCase));
         },
 
         top: function (t) {
@@ -123,7 +124,7 @@
             return this;
         },
 
-        data: function (measures) {
+        data: function (measures, extras) {
             measures = _.isArray(measures) ? measures : [measures];
             var _this = this;
             var filteredData = this._filterSelector ? _.filter(_this._data, function(row, index) { return _this._filterSelector.call(_this, row, index, _this._headers); }) : this._data;
@@ -136,7 +137,7 @@
                 rolledUp = this._take > 0 ? rolledUp.slice(0, this._take) : rolledUp.slice(this._take);
             }
 
-            var result = _.map(measures, function (m) { return _this._generateSeries.call(_this, m, rolledUp); });
+            var result = _.map(measures, function (m) { return _this._generateSeries.call(_this, m, rolledUp, extras); });
 
             return result;
         },
@@ -149,14 +150,29 @@
             return this._headers.indexOf(dimension);
         },
 
-        _generateSeries: function (measure, data) {
+        _generateSeries: function (measure, data, extras) {
+            var _this = this;
             var dimIndex = this._dimension;
             var measureIndex = this._getMeasureIndex(measure);
             var result = _.map(data, function (d) {
-                return {
-                    x: d[dimIndex],
+                var xVal = d[dimIndex];
+                var tryDate = Date.parse(xVal);
+                var xData = xVal == +xVal ? +xVal : !_.isNaN(tryDate) ? new Date(tryDate) : xVal;
+                var dataPoint = {
+                    x: xData,
                     y: _.isNaN(+d[measureIndex]) ? d[measureIndex] : +d[measureIndex]
                 };
+
+                if (extras) {
+                    var indices = _.map(extras, function (f) { return _this._getMeasureIndex(f); });
+                    var extrasObj = {};
+                    _.each(indices, function (i,index) {
+                        extrasObj[extras[index]] = d[i];
+                    });
+                    _.extend(dataPoint, extrasObj);
+                }
+
+                return dataPoint;
             });
 
             return { name: measure, data: result };
