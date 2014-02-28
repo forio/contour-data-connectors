@@ -1,6 +1,10 @@
 (function () {
     'use strict';
 
+    /**
+    * Comma Separated Values Files connector (csv)
+    * @class Csv
+    */
     Contour.connectors.Csv = Contour.connectors.ConnectorBase.extend({
         constructor: function (raw, headerRow) {
             headerRow = typeof headerRow === 'undefined' ? true : headerRow;
