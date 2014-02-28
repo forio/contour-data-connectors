@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    Narwhal.connectors.Tsv = Narwhal.connectors.Csv.extend({
+    Contour.connectors.Tsv = Contour.connectors.Csv.extend({
         splitPatter: /\t/
     });
 

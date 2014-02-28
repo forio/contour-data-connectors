@@ -1,13 +1,13 @@
 (function () {
     'use strict';
 
-    /* define the narwhal namespace */
-    Narwhal = Narwhal || {};
-    Narwhal.connectors = Narwhal.connectors || {};
+    /* define the Contour namespace */
+    Contour = Contour || {};
+    Contour.connectors = Contour.connectors || {};
 
 
-    /* define a base class for all narwhal components to inherit common functionality */
-    Narwhal.Base = function () {};
-    Narwhal.Base.extend = Narwhal.extendClass;
+    /* define a base class for all Contour components to inherit common functionality */
+    Contour.Base = function () {};
+    Contour.Base.extend = Contour.extendClass;
 
 })();

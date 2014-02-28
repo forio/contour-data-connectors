@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    Narwhal.connectors.Csv = Narwhal.connectors.ConnectorBase.extend({
+    Contour.connectors.Csv = Contour.connectors.ConnectorBase.extend({
         constructor: function (raw, headerRow) {
             headerRow = typeof headerRow === 'undefined' ? true : headerRow;
             this.parse(raw, headerRow);

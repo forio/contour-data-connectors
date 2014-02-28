@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    Narwhal.connectors.ConnectorBase = Narwhal.Base.extend({
+    Contour.connectors.ConnectorBase = Contour.Base.extend({
         initialize: function () {
         },
 
