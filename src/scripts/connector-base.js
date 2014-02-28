@@ -5,6 +5,9 @@
         initialize: function () {
         },
 
+        /**
+        * Returns the list of all posible dimensions for the data set
+        */
         getDimensions: function () {
             if (!this._data.length) return this._headers[0];
             var dimensions = [];
@@ -20,6 +23,9 @@
             return dimensions;
         },
 
+        /**
+        * Returns the list of all posible measures for the data set
+        */
         getMeasures: function () {
             var measures = [];
             var sampleRow = this._data[1];
@@ -34,12 +40,28 @@
             return measures;
         },
 
+        /**
+        * Specifies the dimension to be used when calling data()
+        *
+        * @param: {string} The name of the column to be used as main dimension for the data set
+        */
         dimension: function (_) {
             if(!arguments.length) return this._headers[this._dimension];
             this._dimension = this._headers.indexOf(_.toLowerCase().trim());
             return this;
         },
 
+        /**
+        * Specifies a filter for the data set
+        *
+        * This can be a filter function function that will receive each row in the dataset
+        * and should return true if the row should be included in the final data() or false otherwise
+        *
+        * If the parameter is an object, the object will be used as a 'match' for each row in the data set
+        * ie. { country: 'US' } will filter out any row that do not have 'US' in the column country
+        *
+        * @param {function|object}
+        */
         filter: function (criteria) {
             if (typeof criteria === 'function') {
                 this._filterSelector = selector;
@@ -107,6 +129,15 @@
             return reduced;
         },
 
+        /**
+        * Returns the dataset for the specificied measure
+        * using the currently specified dimension
+        *
+        * @param Name {string|array} the column name of the dimension (case-insensitive), if its an array
+        *  each measure will result in a chart series
+        * @param extras {array} (optional) an array of extra columns to be included in the data set (usefull for including extra dimensions)
+        * @return {array} Nornalize data set to be passed to a Contour chart
+        */
         measure: function (name, extras) {
             name = _.isArray(name) ? name : [name];
             var lowerCase = function (x) { return x.toLowerCase().trim(); }
@@ -114,16 +145,25 @@
             return this.data(_.map(name, lowerCase), _.map(extras, lowerCase));
         },
 
+        /**
+        * Returns only the top X results form the sorted dataset
+        */
         top: function (t) {
             this._take = t;
             return this;
         },
 
+        /**
+        * Returns only the bottom X results form the sorted dataset
+        */
         bottom: function (t) {
             this._take = -t;
             return this;
         },
 
+        /**
+        * Returns only the top X results form the sorted dataset
+        */
         data: function (measures, extras) {
             measures = _.isArray(measures) ? measures : [measures];
             var _this = this;
