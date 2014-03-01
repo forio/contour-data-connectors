@@ -6,6 +6,7 @@ var async = require('async');
 var path = require('path');
 var _ = require('lodash');
 
+var doxTemplate = __dirname + '/src/documentation/file-dox-template.ejs';
 var docFolder = __dirname + '/documentation/';
 var configDocFolder = docFolder + 'config/';
 var docSrcFolder = __dirname + '/src/documentation/';
@@ -94,7 +95,7 @@ function generatePerFileDoc(allFiles) {
     async.forEach(allFiles, function(file, next) {
         markdox.process(file, {
             output: docFolder + path.basename(file) + '.md',
-            template: 'src/documentation/file-dox-template.ejs',
+            template: doxTemplate,
             formatter: function(docfile){
                 return docfile;
             },
@@ -116,7 +117,7 @@ function generateAllFilesDoc(allFiles) {
     var output = docFolder + 'all.md';
     markdox.process(allFiles, {
         output:output,
-        template: 'src/documentation/file-dox-template.ejs',
+        template: doxTemplate,
         formatter: function(docfile){
             return docfile;
         },
