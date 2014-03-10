@@ -6,7 +6,11 @@
         },
 
         /**
-        * Returns the list of all posible dimensions for the data set
+        * Returns the list of all posible dimensions for the data set.
+        *
+        * ### Example: TBW
+        * 
+        * @function getDimensions
         */
         getDimensions: function () {
             if (!this._data.length) return this._headers[0];
@@ -24,7 +28,11 @@
         },
 
         /**
-        * Returns the list of all posible measures for the data set
+        * Returns the list of all posible measures for the data set.
+        *
+        * ### Example: TBW
+        * 
+        * @function getMeasures 
         */
         getMeasures: function () {
             var measures = [];
@@ -54,7 +62,7 @@
         /**
         * Specifies a filter for the data set
         *
-        * This can be a filter function function that will receive each row in the dataset
+        * This can be a filter function that will receive each row in the dataset
         * and should return true if the row should be included in the final data() or false otherwise
         *
         * If the parameter is an object, the object will be used as a 'match' for each row in the data set
@@ -136,7 +144,7 @@
         * @param Name {string|array} the column name of the dimension (case-insensitive), if its an array
         *  each measure will result in a chart series
         * @param extras {array} (optional) an array of extra columns to be included in the data set (usefull for including extra dimensions)
-        * @return {array} Nornalize data set to be passed to a Contour chart
+        * @return {array} Normalize data set to be passed to a Contour chart
         */
         measure: function (name, extras) {
             name = _.isArray(name) ? name : [name];
