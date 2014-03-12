@@ -47,7 +47,7 @@ module.exports = function (grunt) {
         concat: {
             all: {
                 src: ['src/scripts/header.js', '<%= scripts.libs %>', '<%= scripts.connectors %>', 'src/scripts/footer.js'],
-                dest: 'dist/narwhal.connectors.js'
+                dest: 'dist/contour.connectors.js'
             }
         },
         uglify: {
@@ -60,7 +60,7 @@ module.exports = function (grunt) {
             },
             production: {
                 files: {
-                    'dist/narwhal.connectors.min.js': ['dist/narwhal.connectors.js']
+                    'dist/contour.connectors.min.js': ['dist/contour.connectors.js']
                 }
             }
         }
@@ -80,7 +80,7 @@ module.exports = function (grunt) {
         var pkg = require('./package.json');
         this.data.forEach(function (f) {
             console.log('Updating ' + f + ' to version ' + pkg.version);
-            grunt.file.write(f, "Narwhal.connectors.version = '" + pkg.version + "';");
+            grunt.file.write(f, "Contour.connectors.version = '" + pkg.version + "';");
         });
     });
 
