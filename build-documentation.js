@@ -96,9 +96,6 @@ function generatePerFileDoc(allFiles) {
         markdox.process(file, {
             output: docFolder + path.basename(file) + '.md',
             template: doxTemplate,
-            formatter: function(docfile){
-                return docfile;
-            },
             compiler: function(filepath, data){
                 return commentNormalizer(data);
             }
@@ -118,9 +115,6 @@ function generateAllFilesDoc(allFiles) {
     markdox.process(allFiles, {
         output:output,
         template: doxTemplate,
-        formatter: function(docfile){
-            return docfile;
-        },
         compiler: function(filepath, data){
             return commentNormalizer(data);
         }
