@@ -2,6 +2,12 @@
 
 Data connectors are libraries that connect data sources to Narwhal visualizations.
 
+#### To build from source
+
+1. `npm install`
+
+2. `grunt production`
+
 #### Example CSV connector
 
 ```
@@ -10,13 +16,12 @@ Data connectors are libraries that connect data sources to Narwhal visualization
     var csv = new Narwhal.connectors.Csv(csvData);
 
     new Narwhal({
-            el: '.connecto-basic',
+            el: '.connector-basic',
             xAxis: {
-                firstAndLast: false,
-                title: 'Profit ($)',
+                title: 'Quarter'
             },
             yAxis: {
-                title: 'Quarter'
+                title: 'Profit'
             }
         })
         .cartesian()
