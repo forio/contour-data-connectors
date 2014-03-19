@@ -20,7 +20,7 @@ var options = {
 };
 
 var allFiles = getSourceFileList(options.src);
-var filesToCopy = [];
+var filesToCopy = ['connectors.md'];
 
 ensureDirectory([docFolder]);
 
