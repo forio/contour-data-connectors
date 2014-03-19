@@ -1,6 +1,6 @@
 {
   "name": "Narwhal-Connectors",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "devDependencies": {
     "grunt-contrib-watch": "~0.5.3",
     "grunt-contrib-concat": "~0.3.0",
@@ -11,7 +11,7 @@
     "grunt-tagrelease": "~0.2.1",
     "lodash": "~2.4.1",
     "glob": "^3.2.9",
-    "markdox": "^0.1.2",
+    "markdox": "^0.1.3",
     "async": "^0.2.10"
   }
 }
