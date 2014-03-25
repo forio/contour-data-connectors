@@ -1,0 +1,7 @@
+---
+ name: Basic CSV Connector
+ description: Display any data in CSV (comma-separated values) format in your Contour instance using the CSV Connector. Numeric fields are considered measures, and non-numeric fields are dimensions. Read from a variable or from a file.
+ authors:
+   - Forio
+ normalize_css: no
+ ...
