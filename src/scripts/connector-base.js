@@ -8,13 +8,13 @@
         /**
         * Returns the list of all posible dimensions for the data set. Dimensions are any non-numeric data.
         *
-        * ### Example: 
+        * ### Example:
         *
         *       var csvData = 'quarter,region,cost,revenue,profit\n2013Q1,North,100,150,50\n2013Q1,South,200,250,50\n2013Q2,North,110,150,40\n2013Q2,South,220,250,30\n2013Q3,North,90,180,90\n2013Q3,South,115,180,65\n2013Q4,North,105,190,85\n2013Q3,South,90,180,90';
-        *       var csv = new Contour.connectors.Csv(csvData); 
-        *       
-        *       csv.getDimensions(); // returns array ["quarter", "region"] 
-        * 
+        *       var csv = new Contour.connectors.Csv(csvData);
+        *
+        *       csv.getDimensions(); // returns array ["quarter", "region"]
+        *
         * @function getDimensions
         * @return {array} Array of dimensions for this data set.
         */
@@ -40,10 +40,10 @@
         *
         *       var csvData = 'quarter,cost,revenue,profit\n2013Q1,100,150,50\n2013Q2,110,150,40\n2013Q3,90,180,90\n2013Q4,105,190,85'
         *       var csv = new Contour.connectors.Csv(csvData);
-        *       
-        *       csv.getMeasures(); // returns array ["cost", "revenue", "profit"] 
-        * 
-        * @function getMeasures 
+        *
+        *       csv.getMeasures(); // returns array ["cost", "revenue", "profit"]
+        *
+        * @function getMeasures
         * @return {array} Array of measures for this data set.
         */
         getMeasures: function () {
@@ -63,11 +63,11 @@
         /**
         * Specifies the dimension to be used when passing this data set to a Contour visualization. Dimensions are any non-numeric data.
         *
-        * ### Example: 
-        *       var csvData = 'quarter,region,cost,revenue,profit\n2013Q1,North,100,150,50\n2013Q1,South,200,250,50\n2013Q2,North,110,150,40\n2013Q2,South,220,250,30\n2013Q3,North,90,180,90\n2013Q3,South,115,180,65\n2013Q4,North,105,190,85\n2013Q4,South,90,180,90';
-        *       var csv = new Contour.connectors.Csv(csvData);    
-        *   
-        *       new Contour({
+        * ### Example:
+        *   var csvData = 'quarter,region,cost,revenue,profit\n2013Q1,North,100,150,50\n2013Q1,South,200,250,50\n2013Q2,North,110,150,40\n2013Q2,South,220,250,30\n2013Q3,North,90,180,90\n2013Q3,South,115,180,65\n2013Q4,North,105,190,85\n2013Q4,South,90,180,90';
+        *   var csv = new Contour.connectors.Csv(csvData);
+        *
+        *   new Contour({
         *           el: '.myChart',
         *           xAxis: { title: 'Region' },
         *           yAxis: { title: 'Profit ($)' }
@@ -94,19 +94,19 @@
         * This can also be a filter function. The filter function will receive each row in the dataset,
         * and should return true if the row should be included in the final data, or false otherwise.
         *
-        * ### Example:  
-        * 
-        *       var csvData = 'quarter,region,cost,revenue,profit\n2013Q1,North,100,150,50\n2013Q1,South,200,250,50\n2013Q2,North,110,150,40\n2013Q2,South,220,250,30\n2013Q3,North,90,180,90\n2013Q3,South,115,180,65\n2013Q4,North,105,190,85\n2013Q4,South,90,180,90';
-        *       var csv = new Contour.connectors.Csv(csvData);    
-        *   
-        *       new Contour({
+        * ### Example:
+        *
+        *   var csvData = 'quarter,region,cost,revenue,profit\n2013Q1,North,100,150,50\n2013Q1,South,200,250,50\n2013Q2,North,110,150,40\n2013Q2,South,220,250,30\n2013Q3,North,90,180,90\n2013Q3,South,115,180,65\n2013Q4,North,105,190,85\n2013Q4,South,90,180,90';
+        *   var csv = new Contour.connectors.Csv(csvData);
+        *
+        *   new Contour({
         *           el: '.myChart',
         *           xAxis: { title: 'Quarter' },
         *           yAxis: { title: 'Profit ($)' }
         *       })
         *       .cartesian()
         *       .column(csv.dimension('quarter').filter({region: 'North'}).measure('profit'))
-        *       .render();        
+        *       .render();
         *
         * @function filter
         * @param {function|object} criteria The function which returns true for each row to include, or the object which matches each row to include.
@@ -144,6 +144,7 @@
             var rows = {};
             var dimensionIndex = dimension;
             var hashEntry;
+            var needsReduce = false;
 
             // map
             _.each(data, function (d) {
@@ -152,7 +153,12 @@
                 }
 
                 hashEntry.push(d);
+                needsReduce = hashEntry.length > 1;
             });
+
+            if (!needsReduce) {
+                return data;
+            }
 
             // reduce
             var reduced = [];
@@ -183,11 +189,11 @@
         *
         * ### Example:
         *
-        *       var csvData = 'quarter,region,cost,revenue,profit\n2013Q1,North,100,150,50\n2013Q1,South,200,250,50\n2013Q2,North,110,150,40\n2013Q2,South,220,250,30\n2013Q3,North,90,180,90\n2013Q3,South,115,180,65\n2013Q4,North,105,190,85\n2013Q4,South,90,180,90';
-        *       var csv = new Contour.connectors.Csv(csvData);    
-        *   
+        *   var csvData = 'quarter,region,cost,revenue,profit\n2013Q1,North,100,150,50\n2013Q1,South,200,250,50\n2013Q2,North,110,150,40\n2013Q2,South,220,250,30\n2013Q3,North,90,180,90\n2013Q3,South,115,180,65\n2013Q4,North,105,190,85\n2013Q4,South,90,180,90';
+        *   var csv = new Contour.connectors.Csv(csvData);
         *
-        *       new Contour({
+        *
+        *   new Contour({
         *           el: '.myChart',
         *           xAxis: { title: 'Region' },
         *           yAxis: { title: 'Profit ($)' }
@@ -212,11 +218,11 @@
         /**
         * Returns only the top `t` results from the sorted data set. Call this after you have specified dimensions and/or filters but before you have called `.measure()`.
         *
-        * ### Example: 
-        *       var csvData = 'quarter,region,cost,revenue,profit\n2013Q1,North,100,150,50\n2013Q1,South,200,250,50\n2013Q2,North,110,150,40\n2013Q2,South,220,250,30\n2013Q3,North,90,180,90\n2013Q3,South,115,180,65\n2013Q4,North,105,190,85\n2013Q4,South,90,180,90';
-        *       var csv = new Contour.connectors.Csv(csvData);    
-        * 
-        *       new Contour({
+        * ### Example:
+        *   var csvData = 'quarter,region,cost,revenue,profit\n2013Q1,North,100,150,50\n2013Q1,South,200,250,50\n2013Q2,North,110,150,40\n2013Q2,South,220,250,30\n2013Q3,North,90,180,90\n2013Q3,South,115,180,65\n2013Q4,North,105,190,85\n2013Q4,South,90,180,90';
+        *   var csv = new Contour.connectors.Csv(csvData);
+        *
+        *   new Contour({
         *           el: '.myChart',
         *           xAxis: { title: 'Quarter' },
         *           yAxis: { title: 'Profit ($)' }
@@ -225,7 +231,7 @@
         *           // returns, in order of profitability, the top 3 most profitable quarters in the North region
         *       .column(csv.dimension('quarter').filter({region: 'North'}).top(3).measure('profit'))
         *       .render();
-        * 
+        *
         * @function top
         * @param {integer} t The number of results to return.
         * @return {array} The sorted data set, truncated after `t` results.
@@ -238,11 +244,11 @@
         /**
         * Returns only the bottom `t` results from the sorted data set. Call this after you have specified dimensions and/or filters but before you have called `.measure()`.
         *
-        * ### Example: 
-        *       var csvData = 'quarter,region,cost,revenue,profit\n2013Q1,North,100,150,50\n2013Q1,South,200,250,50\n2013Q2,North,110,150,40\n2013Q2,South,220,250,30\n2013Q3,North,90,180,90\n2013Q3,South,115,180,65\n2013Q4,North,105,190,85\n2013Q4,South,90,180,90';
-        *       var csv = new Contour.connectors.Csv(csvData);    
-        * 
-        *       new Contour({
+        * ### Example:
+        *   var csvData = 'quarter,region,cost,revenue,profit\n2013Q1,North,100,150,50\n2013Q1,South,200,250,50\n2013Q2,North,110,150,40\n2013Q2,South,220,250,30\n2013Q3,North,90,180,90\n2013Q3,South,115,180,65\n2013Q4,North,105,190,85\n2013Q4,South,90,180,90';
+        *   var csv = new Contour.connectors.Csv(csvData);
+        *
+        *   new Contour({
         *           el: '.myChart',
         *           xAxis: { title: 'Quarter' },
         *           yAxis: { title: 'Profit ($)' }
@@ -251,7 +257,7 @@
         *           // returns, in order of profitability, the bottom 3 most profitable quarters in the North region
         *       .column(csv.dimension('quarter').filter({region: 'North'}).top(3).measure('profit'))
         *       .render();
-        * 
+        *
         * @function bottom
         * @param {integer} t The number of results to return.
         * @return {array} The sorted data set, including only the last `t` results.
