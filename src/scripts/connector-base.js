@@ -64,6 +64,7 @@
         * Specifies the dimension to be used when passing this data set to a Contour visualization. Dimensions are any non-numeric data.
         *
         * ### Example:
+        *
         *       var csvData = 'quarter,region,cost,revenue,profit\n2013Q1,North,100,150,50\n2013Q1,South,200,250,50\n2013Q2,North,110,150,40\n2013Q2,South,220,250,30\n2013Q3,North,90,180,90\n2013Q3,South,115,180,65\n2013Q4,North,105,190,85\n2013Q4,South,90,180,90';
         *       var csv = new Contour.connectors.Csv(csvData);
         *
@@ -219,6 +220,7 @@
         * Returns only the top `t` results from the sorted data set. Call this after you have specified dimensions and/or filters but before you have called `.measure()`.
         *
         * ### Example:
+        *
         *       var csvData = 'quarter,region,cost,revenue,profit\n2013Q1,North,100,150,50\n2013Q1,South,200,250,50\n2013Q2,North,110,150,40\n2013Q2,South,220,250,30\n2013Q3,North,90,180,90\n2013Q3,South,115,180,65\n2013Q4,North,105,190,85\n2013Q4,South,90,180,90';
         *       var csv = new Contour.connectors.Csv(csvData);
         *
@@ -245,6 +247,7 @@
         * Returns only the bottom `t` results from the sorted data set. Call this after you have specified dimensions and/or filters but before you have called `.measure()`.
         *
         * ### Example:
+        *
         *       var csvData = 'quarter,region,cost,revenue,profit\n2013Q1,North,100,150,50\n2013Q1,South,200,250,50\n2013Q2,North,110,150,40\n2013Q2,South,220,250,30\n2013Q3,North,90,180,90\n2013Q3,South,115,180,65\n2013Q4,North,105,190,85\n2013Q4,South,90,180,90';
         *       var csv = new Contour.connectors.Csv(csvData);
         *
