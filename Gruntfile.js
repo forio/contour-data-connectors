@@ -68,7 +68,8 @@ module.exports = function (grunt) {
 
     // Default task.
     grunt.registerTask('default', ['concat', 'uglify', 'watch']);
-    grunt.registerTask('production', function (type) {
+    grunt.registerTask('production', ['concat', 'uglify']);
+    grunt.registerTask('relase', function (type) {
         type = type ? type : 'patch';
         ['bumpup:' + type, 'ver', 'concat', 'uglify', 'tagrelease'].forEach(function (task) {
             grunt.task.run(task);
