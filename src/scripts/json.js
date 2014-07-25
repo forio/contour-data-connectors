@@ -31,11 +31,12 @@
         },
 
         parse: function (raw) {
-            this._headers = _.keys(raw) || [];
+            var keys = _.keys(raw);
+            this._headers = _.map(keys, function (d) { return d.toLowerCase(); }) || [];
             this._data = [];
 
-            for (var i=0; i<this._headers.length; i++) {
-                var keyData = raw[this._headers[i]];
+            for (var i=0; i<keys.length; i++) {
+                var keyData = raw[keys[i]];
 
                 for (var j=0; j<keyData.length; j++) {
                     var row = this._data[j] || (this._data[j] = []);
