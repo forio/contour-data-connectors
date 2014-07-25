@@ -90,7 +90,13 @@
         */
         dimension: function (_) {
             if(!arguments.length) return this._headers[this._dimension];
-            this._dimension = this._headers.indexOf(_.toLowerCase().trim());
+
+            if (typeof _ === 'function') {
+                this._dimension = _;
+            } else {
+                this._dimension = this._headers.indexOf(_.toLowerCase().trim());
+            }
+
             return this;
         },
 
@@ -151,14 +157,16 @@
 
         _rollup: function (data, dimension) {
             var rows = {};
-            var dimensionIndex = dimension;
             var hashEntry;
             var needsReduce = false;
+            var _this = this;
+            var dimKey = function (d, i) { return typeof dimension === 'function' ? dimension.call(_this, d, i) : d[dimension]; };
 
             // map
-            _.each(data, function (d) {
-                if (!(hashEntry = rows[d[dimensionIndex]])) {
-                    rows[d[dimensionIndex]] = hashEntry = [];
+            _.each(data, function (d, i) {
+                var key = dimKey(d, i);
+                if (!(hashEntry = rows[key])) {
+                    rows[key] = hashEntry = [];
                 }
 
                 hashEntry.push(d);
@@ -175,7 +183,7 @@
 
             var reducer = function (row) {
                 _.each(row, function (entry, i) {
-                    if (!_.isNaN(+entry)) {
+                    if (i !== dimension && !_.isNaN(+entry)) {
                         var val = +entry;
                         gr[i] = (gr[i] || 0) + val;
                     } else {
@@ -304,10 +312,10 @@
 
         _generateSeries: function (measure, data, extras) {
             var _this = this;
-            var dimIndex = this._dimension;
+            var dimensionData = function (d, i) { return (typeof _this._dimension === 'function') ? _this._dimension.call(_this, d, i) : d[_this._dimension]; };
             var measureIndex = this._getMeasureIndex(measure);
-            var result = _.map(data, function (d) {
-                var xVal = d[dimIndex];
+            var result = _.map(data, function (d, i) {
+                var xVal = dimensionData(d, i);
                 var tryDate = Date.parse(xVal);
                 var xData = xVal == +xVal ? +xVal : !_.isNaN(tryDate) ? new Date(tryDate) : xVal;
                 var dataPoint = {
