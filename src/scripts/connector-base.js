@@ -5,6 +5,15 @@
         initialize: function () {
         },
 
+        fetch: function (url, callback) {
+            var _this = this;
+
+            return d3.text(url, function (data) {
+                _this.parse(data);
+                if (callback) callback.call(_this, data);
+            });
+        },
+
         /**
         * Returns the list of all posible dimensions for the data set. Dimensions are any non-numeric data.
         *
@@ -24,7 +33,7 @@
             var sampleRow = this._data[1];
 
             _.each(this._headers, function (header, index) {
-                if (_.isNaN(+sampleRow[index])) {
+                if (_.isNaN(+sampleRow[index].trim())) {
                     dimensions.push(header);
                 }
 
@@ -51,7 +60,7 @@
             var sampleRow = this._data[1];
 
             _.each(this._headers, function (header, index) {
-                if (!_.isNaN(+sampleRow[index])) {
+                if (!_.isNaN(+sampleRow[index].trim())) {
                     measures.push(header);
                 }
 
