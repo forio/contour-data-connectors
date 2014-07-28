@@ -44,6 +44,12 @@ module.exports = function (grunt) {
             ]
 
         },
+        releaseNotes: {
+            files: [],
+            options: {
+                dest: 'dist/contour-connectors-release-notes.txt'
+            }
+        },
         concat: {
             all: {
                 src: ['src/scripts/header.js', '<%= scripts.libs %>', '<%= scripts.connectors %>', 'src/scripts/footer.js'],
@@ -76,6 +82,16 @@ module.exports = function (grunt) {
         });
     });
 
+    grunt.registerMultiTask('releaseNotes', 'Generate a release notes file with changes in git log since last tag', function () {
+        var options = this.options({
+            dest: 'dist/release-notes.txt'
+        });
+
+        var cmd = 'git log --pretty="format:  * %s"  `git describe --tags --abbrev=0`..HEAD > ' + options.dest;
+        grunt.log.verbose.writeln('executing', cmd);
+        var log = require('shelljs').exec(cmd).output;
+        grunt.file.write(options.dest, log);
+    });
 
     grunt.registerMultiTask('ver', 'Update version file with what\'s in package.json', function () {
         var pkg = require('./package.json');
