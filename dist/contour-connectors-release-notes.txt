@@ -1,2 +1,0 @@
-  * Merge pull request #5 from forio/documentation
-  * add whitespace so md renders code in <pre> block at http://forio.com/contour/documentation.html#base-connector
