@@ -1,6 +1,10 @@
 {
   "name": "Contour-Data-Connectors",
   "version": "0.9.114",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/forio/contour-data-connectors"
+  },
   "devDependencies": {
     "grunt-contrib-watch": "~0.5.3",
     "grunt-contrib-concat": "~0.3.0",
