@@ -52,22 +52,23 @@ module.exports = function (grunt) {
         },
         concat: {
             all: {
-                src: ['src/scripts/header.js', '<%= scripts.libs %>', '<%= scripts.connectors %>', 'src/scripts/footer.js'],
+                src: ['<%= scripts.libs %>', '<%= scripts.connectors %>'],
                 dest: 'dist/contour.connectors.js'
             }
         },
         uglify: {
             options: {
-                sourceMap: function (fileName) {
-                    return fileName.replace(/\.js$/, '.map');
-                },
+                sourceMapIncludeSources: true,
+                sourceMap: true,
+                wrap: true,
                 banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +
-                        '<%= grunt.template.today("yyyy-mm-dd") %> */\n'
+                        '<%= grunt.template.today("yyyy-mm-dd") %> */'
             },
             production: {
-                files: {
-                    'dist/contour.connectors.min.js': ['dist/contour.connectors.js']
-                }
+                files: [{
+                    src: ['<%= scripts.libs %>', '<%= scripts.connectors %>'],
+                    dest: 'dist/contour.connectors.min.js'
+                }]
             }
         }
     });
