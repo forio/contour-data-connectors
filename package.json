@@ -1,6 +1,6 @@
 {
   "name": "Contour-Data-Connectors",
-  "version": "0.9.109",
+  "version": "0.9.110",
   "devDependencies": {
     "grunt-contrib-watch": "~0.5.3",
     "grunt-contrib-concat": "~0.3.0",
