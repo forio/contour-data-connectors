@@ -1,6 +1,14 @@
 (function () {
     'use strict';
 
+    /**
+    * ##Connectors
+    * 
+    * Data connectors allow you to connect your visualizations to source data in different formats, including CSV (comma-separated values), TSV (tab-separated values), and JSON.
+    * 
+    * All data connectors include several selectors for dimensions and measures, and for filtering data sets.
+    **/
+
     Contour.connectors.ConnectorBase = Contour.Base.extend({
         initialize: function () {
         },
