@@ -5,7 +5,7 @@
     * JSON connector
     *
     * JSON data is assumed to have the following format:
-    *   { "field1": ["a", "b", "c"], "field": [1,2,3] }
+    *   `{ "field1": ["a", "b", "c"], "field2": [1,2,3] }`
     *
     * ### Example:
     *
