@@ -67,6 +67,14 @@
 (function () {
     'use strict';
 
+    /**
+    * ##Connectors
+    * 
+    * Data connectors allow you to connect your visualizations to source data in different formats, including CSV (comma-separated values), TSV (tab-separated values), and JSON.
+    * 
+    * All data connectors include several selectors for dimensions and measures, and for filtering data sets.
+    **/
+
     Contour.connectors.ConnectorBase = Contour.Base.extend({
         initialize: function () {
         },
@@ -486,7 +494,7 @@
     * JSON connector
     *
     * JSON data is assumed to have the following format:
-    *   { "field1": ["a", "b", "c"], "field": [1,2,3] }
+    *   `{ "field1": ["a", "b", "c"], "field2": [1,2,3] }`
     *
     * ### Example:
     *
@@ -557,4 +565,4 @@
 
 })();
 
-Contour.connectors.version = '0.9.111';
+Contour.connectors.version = '0.9.112';
