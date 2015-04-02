@@ -1,3 +1,0 @@
-  * Merge pull request #6 from forio/showcase-testing-branch
-  * put sample code in code font
-  * put connectors overview into base connector
