@@ -1,0 +1,17 @@
+{
+  "name": "Contour-Data-Connectors",
+  "description": "Data Connectors components for Forio Contour",
+  "version": "0.9.114",
+  "main": [
+    "dist/contour.connectors.js"
+  ],
+  "ignore": [
+    "**/*",
+    "!dist/**/*.*"
+  ],
+  "dependencies": {
+    "lodash": "~2.4.1",
+    "d3": "~3.3.0",
+    "contour": "~0.9.107"
+  }
+}
