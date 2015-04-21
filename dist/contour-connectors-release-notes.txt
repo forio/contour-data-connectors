@@ -1,0 +1,2 @@
+  * added bower.json
+  * added repository field to package.json
