@@ -1,2 +1,2 @@
-  * added bower.json
-  * added repository field to package.json
+  * Merge pull request #7 from forio/read-me-fix
+  * Chaning the read me from new Narwhal -> new Contour
