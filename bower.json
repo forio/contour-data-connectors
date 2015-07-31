@@ -1,7 +1,7 @@
 {
   "name": "Contour-Data-Connectors",
   "description": "Data Connectors components for Forio Contour",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "main": [
     "dist/contour.connectors.js"
   ],
