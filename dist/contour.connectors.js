@@ -565,4 +565,4 @@
 
 })();
 
-Contour.connectors.version = '0.9.117';
+Contour.connectors.version = '1.0.0';
