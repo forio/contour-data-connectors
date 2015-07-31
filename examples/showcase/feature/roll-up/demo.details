@@ -1,5 +1,5 @@
 ---
- name: Filtering Data Sources
+ name: Aggregate Roll Up
  description: The Contour Data Connector allows you to easily filter any data that you have loaded through a connector. Typically you filter based on the data matching particular dimensions. You can also sort the data and select to show only the `top(n)` or `bottom(n)` data points.
  authors:
    - Forio

@@ -13,7 +13,7 @@ $(function () {
       var csv = new Contour.connectors.Csv(csvData);
 
       // by specifying dimension region, the connector will
-      // agregate all equal regions in the measure, so
+      // aggregate all equal regions in the measure, so
       // the 'North' data point will be the sum of all profits on all quarters
       var data = csv.dimension('region').measure('profit');
 
