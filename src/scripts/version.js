@@ -1,1 +1,1 @@
-Contour.connectors.version = '2.0.0';
+Contour.connectors.version = '1.0.0';
