@@ -6,12 +6,10 @@ $(function() {
         'profit': [50, 40, 90, 85]
     };
 
-    // 2013Q1,100,150,50\n2013Q2,110,150,40\n2013Q3,90,180,90\n2013Q4,105,190,85';
-
     var ds = new Contour.connectors.Json(json);
 
     new Contour({
-        el: '.chart',
+        el: '.myChart',
         xAxis: {
             title: 'Quarter'
         },
