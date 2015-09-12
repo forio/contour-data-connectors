@@ -1,6 +1,1 @@
-  * updated version file to 1.0.0
-  * updated version file to 1.0.0
-  * updated version file to 1.0.0
-  * updated version file to 2.0.0
-  * updated version file to 1.0.0
-  * roll up should be roll up names
+  * fnm-105 fix script include paths so that json example works
