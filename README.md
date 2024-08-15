@@ -25,5 +25,5 @@ Data connectors are libraries that connect data sources to [Contour](http://fori
 ```
 
 
-Want to learn more about Contour? goto [Forio Contour](http://forio.com/contour)
-Want to learn more about Contour Data Connectors? goto [Forio Contour](http://forio.com/contour/gallery.html#/connector)
+Want to learn more about Contour? goto [Forio Contour](https://forio.com/contour)
+Want to learn more about Contour Data Connectors? goto [Forio Contour](https://forio.com/contour/gallery.html#/connector)
